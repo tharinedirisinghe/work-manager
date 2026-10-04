@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Design tokens. Calm, warm neutrals with a single muted sage-teal accent.
+ * Status colors (danger / warning / success) are reserved for meaning, never decoration.
+ * All text tokens meet WCAG AA (4.5:1) on every surface; "faint" is for icons and placeholders only.
+ */
+:root {
+  color-scheme: light;
+  --canvas: #f6f5f1;
+  --surface: #ffffff;
+  --subtle: #efede7;
+  --line: #e5e2da;
+  --line-strong: #d3cfc5;
+  --ink: #262522;
+  --ink-muted: #625e56;
+  --ink-faint: #857f74;
+  --accent: #2f5f58;
+  --accent-hover: #264e48;
+  --accent-soft: #e3eeeb;
+  --accent-ink: #24504a;
+  --on-accent: #ffffff;
+  --danger: #a3443a;
+  --danger-soft: #f7e6e2;
+  --warning: #8a5f17;
+  --warning-soft: #f5ecd9;
+  --success: #3b6d4c;
+  --success-soft: #e2eee6;
+  --overlay: rgb(38 37 34 / 0.28);
+  --shadow: 0 1px 2px rgb(38 37 34 / 0.05), 0 1px 1px rgb(38 37 34 / 0.03);
+  --shadow-lg: 0 12px 32px -8px rgb(38 37 34 / 0.18), 0 2px 6px rgb(38 37 34 / 0.06);
+}
+
+:root.dark {
+  color-scheme: dark;
+  --canvas: #161615;
+  --surface: #1e1e1c;
+  --subtle: #272724;
+  --line: #31302d;
+  --line-strong: #3f3e3a;
+  --ink: #e9e7e2;
+  --ink-muted: #a6a299;
+  --ink-faint: #7f7b73;
+  --accent: #86bbb0;
+  --accent-hover: #9ccbc1;
+  --accent-soft: #1f302d;
+  --accent-ink: #9fcdc3;
+  --on-accent: #10201d;
+  --danger: #e3907f;
+  --danger-soft: #3a2420;
+  --warning: #d8ad5e;
+  --warning-soft: #362d1b;
+  --success: #8ec29b;
+  --success-soft: #1f3125;
+  --overlay: rgb(0 0 0 / 0.5);
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.3);
+  --shadow-lg: 0 16px 40px -8px rgb(0 0 0 / 0.6);
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-subtle: var(--subtle);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-faint: var(--ink-faint);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-ink: var(--accent-ink);
+  --color-on-accent: var(--on-accent);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-overlay: var(--overlay);
+  --shadow-card: var(--shadow);
+  --shadow-float: var(--shadow-lg);
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, 'Cascadia Mono', 'SF Mono', Consolas, monospace;
+}
+
+/* In the base layer so component utilities (e.g. focus-visible:outline-none) can override them. */
+@layer base {
+  body {
+    @apply bg-canvas font-sans text-ink antialiased;
+    font-feature-settings: 'cv11', 'ss03';
+  }
+
+  /* One consistent keyboard focus indicator everywhere. */
+  :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: var(--accent-soft);
+  }
+
+  ::placeholder {
+    color: var(--ink-faint);
+  }
+
+  /* Quiet scrollbars that follow the theme. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
+  }
+}
